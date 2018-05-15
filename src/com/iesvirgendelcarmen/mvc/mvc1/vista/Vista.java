@@ -31,11 +31,15 @@ public class Vista {
 	private JSpinner spinnerEdad;
 	private JRadioButton rdbtnMujer;
 	private JRadioButton rdbtnHombre;
+	private JButton btnAceptar;
+	private JButton btnNewButtonExit;
+	private ButtonGroup bGroup;
 
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,6 +50,30 @@ public class Vista {
 				}
 			}
 		});
+	}*/
+
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+
+	public ButtonGroup getbGroup() {
+		return bGroup;
+	}
+
+	public JSpinner getSpinnerEdad() {
+		return spinnerEdad;
+	}
+
+	public JTextField getTextFieldNombre() {
+		return textFieldNombre;
+	}
+
+	public JTextField getTextFieldApellidos() {
+		return textFieldApellidos;
+	}
+
+	public JButton getBtnNewButtonExit() {
+		return btnNewButtonExit;
 	}
 
 	/**
@@ -65,6 +93,7 @@ public class Vista {
 		frame.setResizable(false);
 		frame.setTitle("Aplicación de Usuarios");
 		frame.getContentPane().setLayout(new GridLayout(0, 2, 20, 20));
+		frame.setVisible(true);
 
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
@@ -113,7 +142,7 @@ public class Vista {
 		flowLayout_5.setAlignment(FlowLayout.LEFT);
 		frame.getContentPane().add(panel_6);
 
-		ButtonGroup bGroup = new ButtonGroup();
+		bGroup = new ButtonGroup();
 
 		rdbtnHombre = new JRadioButton("Hombre");
 		rdbtnHombre.setSelected(true);
@@ -149,8 +178,9 @@ public class Vista {
 		JPanel panel_7 = new JPanel();
 		frame.getContentPane().add(panel_7);
 
-		JButton btnAceptar = new JButton("ACEPTAR");
-		btnAceptar.addActionListener(new ActionListener() {
+		btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.setActionCommand("aceptar");
+	/*	btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = textFieldNombre.getText();
 				String apellidos = textFieldApellidos.getText();
@@ -165,17 +195,23 @@ public class Vista {
 				dialogo.showMessageDialog(frame, "Creado usuario: " + usuario,
 						"INFORMACIÓN DE USUARIO", JOptionPane.INFORMATION_MESSAGE);
 			}
-		});
+		});*/
 		panel_7.add(btnAceptar);
 
 		JPanel panel_9 = new JPanel();
 		frame.getContentPane().add(panel_9);
 
-		JButton btnNewButtonExit = new JButton("Salir");
-		btnNewButtonExit.addActionListener(e -> {
+		btnNewButtonExit = new JButton("Salir");
+		btnNewButtonExit.setActionCommand("salir");
+	/*	btnNewButtonExit.addActionListener(e -> {
 			System.exit(0);
-		});
+		});*/
 		panel_9.add(btnNewButtonExit);
+	}
+	public void lanzarDialogo(Usuario usuario) {
+		JOptionPane dialogo = new JOptionPane();
+		dialogo.showMessageDialog(frame, "Creado usuario: " + usuario,
+				"INFORMACIÓN DE USUARIO", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
