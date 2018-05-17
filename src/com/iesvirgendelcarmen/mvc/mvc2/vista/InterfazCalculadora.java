@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-class InterfazCalculadora extends JFrame {
+public class InterfazCalculadora extends JFrame {
 	private JLabel labelResultado;
 	private JButton boton7, boton8, boton9, botonMas, boton4, boton5, boton6,
 	botonMenos, boton1, boton2, boton3, botonPor, boton0, botonC,
@@ -23,6 +23,74 @@ class InterfazCalculadora extends JFrame {
 		crearVentana();
 		crearPanelResultado();
 		crearBotones();
+	}
+
+	public JLabel getLabelResultado() {
+		return labelResultado;
+	}
+
+	public JButton getBoton7() {
+		return boton7;
+	}
+
+	public JButton getBoton8() {
+		return boton8;
+	}
+
+	public JButton getBoton9() {
+		return boton9;
+	}
+
+	public JButton getBotonMas() {
+		return botonMas;
+	}
+
+	public JButton getBoton4() {
+		return boton4;
+	}
+
+	public JButton getBoton5() {
+		return boton5;
+	}
+
+	public JButton getBoton6() {
+		return boton6;
+	}
+
+	public JButton getBotonMenos() {
+		return botonMenos;
+	}
+
+	public JButton getBoton1() {
+		return boton1;
+	}
+
+	public JButton getBoton2() {
+		return boton2;
+	}
+
+	public JButton getBoton3() {
+		return boton3;
+	}
+
+	public JButton getBotonPor() {
+		return botonPor;
+	}
+
+	public JButton getBoton0() {
+		return boton0;
+	}
+
+	public JButton getBotonC() {
+		return botonC;
+	}
+
+	public JButton getBotonIgual() {
+		return botonIgual;
+	}
+
+	public JButton getBotonDivision() {
+		return botonDivision;
 	}
 
 	private void crearBotones() {
@@ -66,7 +134,7 @@ class InterfazCalculadora extends JFrame {
 	private void crearPanelResultado() {
 		
 		JPanel panelResultado = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		labelResultado = new JLabel("0");
+		labelResultado = new JLabel("");
 		Border border = BorderFactory.createEmptyBorder(4, 4, 4, 4);
 		labelResultado.setBorder(border);
 		Font font = new Font("Fuente nueva", Font.BOLD, 16);

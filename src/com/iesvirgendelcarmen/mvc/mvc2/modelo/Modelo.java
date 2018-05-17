@@ -9,19 +9,22 @@ public class Modelo {
 	private int operando1;
 	private int operando2;
 	
+	
+	
+	
 	public Modelo (String operacion) throws ModeloOperacionException { //operacion 25-9
 		//if (operacion.matches("^\\d+[\\+\\-\\*/][0-9]+$")) {
 		//	System.out.println("operación válida");
 		//}
-		Pattern pattern = Pattern.compile("^(\\d+)([\\+\\-\\*/])([0-9]+)$");
+		Pattern pattern = Pattern.compile("^(\\d+)\\s*([\\+\\-\\*/])\\s*([0-9]+)$");
 		Matcher matcher = pattern.matcher(operacion);
 		if (matcher.find()) {
 			this.operacion = matcher.group(2);
 			this.operando1 = Integer.parseInt(matcher.group(1));
 			this.operando2 = Integer.parseInt(matcher.group(3));
-			System.out.println(operacion);
+		/*	System.out.println(operacion);
 			System.out.println(operando1);
-			System.out.println(operando2);
+			System.out.println(operando2);*/
 
 		}
 		else
@@ -42,9 +45,11 @@ public class Modelo {
 		}
 	}
 	
-	public static void main(String[] args) {
+	
+	
+	private static void main(String[] args) {
 		try {
-			Modelo m = new Modelo("6*9");
+			Modelo m = new Modelo("698888 + 8888");
 			System.out.println(m.devolverResultado());
 		} catch (ModeloOperacionException e) {
 			// TODO Auto-generated catch block

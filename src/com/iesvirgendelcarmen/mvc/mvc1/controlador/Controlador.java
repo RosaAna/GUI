@@ -3,6 +3,8 @@ package com.iesvirgendelcarmen.mvc.mvc1.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+
 import com.iesvirgendelcarmen.mvc.mvc1.modelo.Sexo;
 import com.iesvirgendelcarmen.mvc.mvc1.modelo.Usuario;
 import com.iesvirgendelcarmen.mvc.mvc1.vista.Vista;
@@ -21,6 +23,11 @@ public class Controlador implements ActionListener {
 		registrarComponentes(); //fuentes de los eventos
 	}
 	
+
+
+
+	
+
 
 
 
