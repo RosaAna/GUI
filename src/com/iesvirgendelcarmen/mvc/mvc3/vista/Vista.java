@@ -39,9 +39,47 @@ public class Vista {
 	private JTextField textFieldRaza;
 	private JPanel panel_1;
 	private JButton botonMenos10;
+	public JButton getBotonMenos10() {
+		return botonMenos10;
+	}
+
+	public JButton getBotonMenos1() {
+		return botonMenos1;
+	}
+
+	public JButton getBotonMas10() {
+		return botonMas10;
+	}
+
+	public JButton getBotonMas1() {
+		return botonMas1;
+	}
+
 	private JButton botonMenos1;
 	private JButton botonMas10;
 	private JButton botonMas1;
+	
+	public JTextField getTextFieldRaza() {
+		return textFieldRaza;
+	}
+
+	public JTextField getTextFieldNombre() {
+		return textFieldNombre;
+	}
+
+	public JTextField getTextFieldApellidos() {
+		return textFieldApellidos;
+	}
+
+	public JTextField getTextFieldGenero() {
+		return textFieldGenero;
+	}
+
+	public JTextField getTextFieldLenguaje() {
+		return textFieldLenguaje;
+	}
+
+	
 
 	
 	/**
