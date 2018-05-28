@@ -14,7 +14,12 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Vista {
 
@@ -39,6 +44,27 @@ public class Vista {
 	private JTextField textFieldRaza;
 	private JPanel panel_1;
 	private JButton botonMenos10;
+	
+	private JButton botonMenos1;
+	private JButton botonMas10;
+	private JButton botonMas1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JRadioButton botonHombre;
+	private JRadioButton botonMujer;
+	private JLabel lblNewLabel;
+	private JComboBox comboBoxLenguaje;
+	private JLabel lblNewLabel_1;
+	private JComboBox comboBoxRaza;
+	private JButton botonBuscar;
+	private JButton botonSalir;
+	private JButton botonReset;
+	private ButtonGroup bgGroup;
+	
+
 	public JButton getBotonMenos10() {
 		return botonMenos10;
 	}
@@ -55,10 +81,19 @@ public class Vista {
 		return botonMas1;
 	}
 
-	private JButton botonMenos1;
-	private JButton botonMas10;
-	private JButton botonMas1;
 	
+	public JButton getBotonBuscar() {
+		return botonBuscar;
+	}
+
+	public JButton getBotonSalir() {
+		return botonSalir;
+	}
+
+	public JButton getBotonReset() {
+		return botonReset;
+	}
+
 	public JTextField getTextFieldRaza() {
 		return textFieldRaza;
 	}
@@ -82,6 +117,14 @@ public class Vista {
 	
 
 	
+	public JComboBox getComboBoxLenguaje() {
+		return comboBoxLenguaje;
+	}
+
+	public JComboBox getComboBoxRaza() {
+		return comboBoxRaza;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +151,10 @@ public class Vista {
 
 	public JMenuItem getMenuItemAcercaDe() {
 		return menuItemAcercaDe;
+	}
+
+	public ButtonGroup getBgGroup() {
+		return bgGroup;
 	}
 
 	/**
@@ -208,8 +255,70 @@ public class Vista {
 		
 		scrollPane = new JScrollPane();
 		tabbedPane.addTab("Tabla", null, scrollPane, null);
+		botonMas1.setEnabled(false);
+		botonMas10.setEnabled(false);
+		botonMenos1.setEnabled(false);
+		botonMenos10.setEnabled(false);
 		
+		panel_2 = new JPanel();
+		splitPane_1.setLeftComponent(panel_2);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		panel_3 = new JPanel();
+		panel_2.add(panel_3);
+		
+		bgGroup = new ButtonGroup();
+		
+		botonHombre = new JRadioButton("Hombre");
+		botonHombre.setActionCommand("hombre");
+		botonHombre.setSelected(true);
+		panel_3.add(botonHombre);
+		
+		botonMujer = new JRadioButton("Mujer");
+		botonMujer.setActionCommand("mujer");
+		panel_3.add(botonMujer);
+		bgGroup.add(botonHombre);
+		bgGroup.add(botonMujer);
+		
+		panel_4 = new JPanel();
+		panel_2.add(panel_4);
+		
+		lblNewLabel = new JLabel("Lenguaje");
+		panel_4.add(lblNewLabel);
+		
+	//	String[] items = {"item1", "item2", "item3","item4", "item5" };
+		comboBoxLenguaje = new JComboBox();
+		panel_4.add(comboBoxLenguaje);
+		comboBoxLenguaje.setEnabled(false);
+		
+		panel_5 = new JPanel();
+		panel_2.add(panel_5);
+		
+		lblNewLabel_1 = new JLabel("Raza");
+		panel_5.add(lblNewLabel_1);
+		
+		comboBoxRaza = new JComboBox();
+		panel_5.add(comboBoxRaza);
+		comboBoxRaza.setEnabled(false);
+
+		
+		panel_6 = new JPanel();
+		panel_2.add(panel_6);
+		
+		botonBuscar = new JButton("Filtrar");
+		panel_6.add(botonBuscar);
+		
+		botonReset = new JButton("Reset");
+		panel_6.add(botonReset);
+		
+		botonSalir = new JButton("Salir");
+		botonSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panel_6.add(botonSalir);
+		botonBuscar.setEnabled(false);
+		botonReset.setEnabled(false);
 	
 	}
 
