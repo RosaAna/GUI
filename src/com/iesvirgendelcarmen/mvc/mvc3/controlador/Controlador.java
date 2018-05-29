@@ -3,6 +3,7 @@ package com.iesvirgendelcarmen.mvc.mvc3.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,33 +12,40 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import com.iesvirgendelcarmen.mvc.mvc1.modelo.Sexo;
 import com.iesvirgendelcarmen.mvc.mvc3.modelo.Colectivo;
+import com.iesvirgendelcarmen.mvc.mvc3.modelo.ModeloTabla;
 import com.iesvirgendelcarmen.mvc.mvc3.modelo.Persona;
 
 import com.iesvirgendelcarmen.mvc.mvc3.vista.Vista;
 
-public class Controlador implements ActionListener {
-	
+public class Controlador implements ActionListener, TableModelListener {
+
 	private Vista vista;
 	private Colectivo colectivo;
 	private List<Persona> listaPersona;
+	private List<Persona> listaReset = new ArrayList<>();;
 	private List<String>  listaLenguajes = new ArrayList<>();
 	private Set<String>   conjutoLenguajes = new HashSet<>();
 	private Set<String>   conjutoRazas = new HashSet<>();
 	private List<Persona> listaFiltrada = new ArrayList<>();
 	private int contador = 0;
 	private String path;
-	
+
 	public Controlador(Vista vista) {
 		this.vista = vista;
-		
+
 		registrarComponentes();
 	}
 
 
 	private void colocarFormularioPersona(int i, List<Persona> lista) {
+		System.out.println(lista);
+
 		vista.getTextFieldNombre().setText(
 				lista.get(i).getNombre());
 		vista.getTextFieldApellidos().setText(
@@ -48,7 +56,7 @@ public class Controlador implements ActionListener {
 				lista.get(i).getLenguaje());
 		vista.getTextFieldRaza().setText(
 				lista.get(i).getRaza());
-		
+
 	}
 
 
@@ -64,8 +72,9 @@ public class Controlador implements ActionListener {
 		vista.getBotonMenos10().addActionListener(this);
 		vista.getBotonSalir().addActionListener(this);
 		vista.getBotonBuscar().addActionListener(this);
+		vista.getBotonReset().addActionListener(this);
 
-		
+
 	}
 
 
@@ -92,36 +101,32 @@ public class Controlador implements ActionListener {
 			case ">":
 				System.out.println("pulsado " + textoBoton);
 				contador++;
-			//	colocarFormularioPersona(contador);
 				break;
 			case ">>":
 				System.out.println("pulsado " + textoBoton);
 				contador += 10;
-			//	colocarFormularioPersona(contador);
 				break;
 			case "<":
 				System.out.println("pulsado " + textoBoton);
 				contador--;
-			//	colocarFormularioPersona(contador);
 				break;
 			case "<<":
 				System.out.println("pulsado " + textoBoton);
 				contador -= 10;
-			//	colocarFormularioPersona(contador);
 				break;
 			case "Salir":
 				salirAplicacion();
 			case "Filtrar":
-				
+
 				String lenguaje = (String) vista.getComboBoxLenguaje()
 				.getSelectedItem();
-		String raza     = (String) vista.getComboBoxRaza()
-				.getSelectedItem();
-		String sexo = vista.getBgGroup()
-				.getSelection().getActionCommand();
-		
-		System.out.println(lenguaje + " " + raza + " " +sexo );
-	
+				String raza     = (String) vista.getComboBoxRaza()
+						.getSelectedItem();
+				String sexo = vista.getBgGroup()
+						.getSelection().getActionCommand();
+
+				System.out.println(lenguaje + " " + raza + " " +sexo );
+
 				for (Persona persona : listaPersona) {
 					if ((persona.getLenguaje().equals(lenguaje) ||
 							persona.getRaza().equals(raza)) &&
@@ -129,12 +134,17 @@ public class Controlador implements ActionListener {
 									sexo.toUpperCase()))
 						listaFiltrada.add(persona);
 				}
-				colocarFormularioPersona(0, listaFiltrada);
+				listaPersona = listaFiltrada;
+				contador = 0;
+				break;
+			case "Reset" :
+				listaPersona = listaReset;
+				contador = 0;
 				break;
 			default:
 				break;
 			}
-			// contador = contador % listaPersona.size()
+			contador = contador % listaPersona.size();
 			contador %= listaPersona.size();  
 			if (contador < 0)
 				contador += listaPersona.size();
@@ -145,7 +155,7 @@ public class Controlador implements ActionListener {
 
 
 	private void lanzarEleccionFichero() {
-		
+
 		JFileChooser jFileChooser = new JFileChooser(".");
 		int resultado = jFileChooser.showOpenDialog(vista.getFrame());
 		if (resultado == jFileChooser.APPROVE_OPTION) {
@@ -153,11 +163,12 @@ public class Controlador implements ActionListener {
 			colectivo = new Colectivo(path);
 			listaPersona = colectivo.getListaPersona();
 			for (Persona persona : listaPersona) {
+				listaReset.add(persona);
 				conjutoLenguajes.add(persona.getLenguaje());
 				conjutoRazas.add(persona.getRaza());
 			}
-			System.out.println("Tamaño lista " + listaLenguajes.size());
-			System.out.println("Tamaño conjunto " + conjutoLenguajes.size());
+			//System.out.println("Tamaño lista " + listaLenguajes.size());
+			//System.out.println("Tamaño conjunto " + conjutoLenguajes.size());
 			for (String string : conjutoLenguajes) {
 				vista.getComboBoxLenguaje().addItem(string);
 			}
@@ -174,10 +185,14 @@ public class Controlador implements ActionListener {
 			vista.getComboBoxRaza().setEnabled(true);
 			vista.getBotonReset().setEnabled(true);
 			vista.getBotonBuscar().setEnabled(true);
-
+			ModeloTabla mtTabla = new ModeloTabla(colectivo);
+			JTable jTable = new JTable(mtTabla);
+			jTable.getModel().addTableModelListener(this);
+			vista.getScrollPane().setViewportView(jTable);
+			
 		}
-		
-	
+
+
 	}
 
 
@@ -186,12 +201,17 @@ public class Controlador implements ActionListener {
 		jpJOptionPane.showMessageDialog(vista.getFrame(), 
 				"Creado por MMM", "Información autor",
 				JOptionPane.INFORMATION_MESSAGE);
-		
+
 	}
 
 
 	private void salirAplicacion() {
 		System.exit(0);
+
+	}
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

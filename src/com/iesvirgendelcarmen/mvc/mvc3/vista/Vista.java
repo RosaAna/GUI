@@ -20,6 +20,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
 
 public class Vista {
 
@@ -63,6 +64,7 @@ public class Vista {
 	private JButton botonSalir;
 	private JButton botonReset;
 	private ButtonGroup bgGroup;
+	//private JTable table;
 	
 
 	public JButton getBotonMenos10() {
@@ -125,6 +127,10 @@ public class Vista {
 		return comboBoxRaza;
 	}
 
+	/*public void setTable(JTable table) {
+		this.table = table;
+	}*/
+
 	/**
 	 * Launch the application.
 	 */
@@ -157,10 +163,15 @@ public class Vista {
 		return bgGroup;
 	}
 
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
 	/**
 	 * Create the application.
 	 */
 	public Vista() {
+	
 		initialize();
 	}
 
@@ -255,6 +266,18 @@ public class Vista {
 		
 		scrollPane = new JScrollPane();
 		tabbedPane.addTab("Tabla", null, scrollPane, null);
+		
+		//String[] columnNames = 
+		//	{"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
+		/*Object[][] data = {
+			    {"Kathy", "Smith", "Snowboarding", new Integer(5), new Boolean(false)},
+			    {"John", "Doe", "Rowing", new Integer(3), new Boolean(true)},
+			    {"Sue", "Black", "Knitting", new Integer(2), new Boolean(false)},
+			    {"Jane", "White", "Speed reading", new Integer(20), new Boolean(true)},
+			    {"Joe", "Brown", "Pool", new Integer(10), new Boolean(false)}
+			};*/
+	//	table = new JTable();
+	//	scrollPane.setViewportView(table);
 		botonMas1.setEnabled(false);
 		botonMas10.setEnabled(false);
 		botonMenos1.setEnabled(false);
